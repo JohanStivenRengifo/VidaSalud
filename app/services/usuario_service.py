@@ -15,7 +15,7 @@ class UsuarioService:
     """Servicio para operaciones de Usuario"""
     
     def __init__(self):
-        self.usuario_repo = UsuarioRepository()
+        self.usuario_repo = UsuarioRepository(db_connection.client)
         self.auth_service = AuthService()
     
     async def create_usuario(self, usuario_data: UsuarioCreate) -> UsuarioResponse:

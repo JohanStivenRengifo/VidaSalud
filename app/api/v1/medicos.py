@@ -70,6 +70,23 @@ async def get_medicos_with_especialidad(
     return await medico_service.get_medicos_with_especialidad(skip, limit)
 
 
+@router.get("/disponibles", response_model=List[MedicoResponse], summary="Obtener médicos disponibles")
+async def get_medicos_disponibles(
+    skip: int = Query(0, ge=0, description="Número de registros a omitir"),
+    limit: int = Query(100, ge=1, le=1000, description="Número máximo de registros a retornar"),
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Obtener médicos disponibles para citas
+    
+    - **skip**: Número de registros a omitir (para paginación)
+    - **limit**: Número máximo de registros a retornar (máximo 1000)
+    
+    Requiere autenticación
+    """
+    return await medico_service.get_medicos_disponibles(skip, limit)
+
+
 @router.get("/{medico_id}", response_model=MedicoResponse, summary="Obtener médico por ID")
 async def get_medico(
     medico_id: UUID,
@@ -151,23 +168,6 @@ async def get_medicos_by_especialidad(
     Requiere autenticación
     """
     return await medico_service.get_medicos_by_especialidad(especialidad_id)
-
-
-@router.get("/disponibles", response_model=List[MedicoResponse], summary="Obtener médicos disponibles")
-async def get_medicos_disponibles(
-    skip: int = Query(0, ge=0, description="Número de registros a omitir"),
-    limit: int = Query(100, ge=1, le=1000, description="Número máximo de registros a retornar"),
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Obtener médicos disponibles para citas
-    
-    - **skip**: Número de registros a omitir (para paginación)
-    - **limit**: Número máximo de registros a retornar (máximo 1000)
-    
-    Requiere autenticación
-    """
-    return await medico_service.get_medicos_disponibles(skip, limit)
 
 
 @router.get("/calificacion/{calificacion_min}", response_model=List[MedicoResponse], summary="Obtener médicos por calificación")

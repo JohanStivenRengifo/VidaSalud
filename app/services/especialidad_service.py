@@ -14,7 +14,7 @@ class EspecialidadService:
     """Servicio para operaciones de Especialidad"""
     
     def __init__(self):
-        self.especialidad_repo = EspecialidadRepository()
+        self.especialidad_repo = EspecialidadRepository(db_connection.client)
     
     async def create_especialidad(self, especialidad_data: EspecialidadCreate) -> EspecialidadResponse:
         """Crear una nueva especialidad"""

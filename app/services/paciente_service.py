@@ -15,8 +15,8 @@ class PacienteService:
     """Servicio para operaciones de Paciente"""
     
     def __init__(self):
-        self.paciente_repo = PacienteRepository()
-        self.usuario_repo = UsuarioRepository()
+        self.paciente_repo = PacienteRepository(db_connection.client)
+        self.usuario_repo = UsuarioRepository(db_connection.client)
     
     async def create_paciente(self, paciente_data: PacienteCreate) -> PacienteResponse:
         """Crear un nuevo paciente"""

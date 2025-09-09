@@ -16,9 +16,9 @@ class MedicoService:
     """Servicio para operaciones de Médico"""
     
     def __init__(self):
-        self.medico_repo = MedicoRepository()
-        self.usuario_repo = UsuarioRepository()
-        self.especialidad_repo = EspecialidadRepository()
+        self.medico_repo = MedicoRepository(db_connection.client)
+        self.usuario_repo = UsuarioRepository(db_connection.client)
+        self.especialidad_repo = EspecialidadRepository(db_connection.client)
     
     async def create_medico(self, medico_data: MedicoCreate) -> MedicoResponse:
         """Crear un nuevo médico"""
@@ -146,7 +146,7 @@ class MedicoService:
         """Actualizar calificación promedio del médico"""
         # Obtener todas las calificaciones del médico
         from app.repositories.calificacion_repository import CalificacionRepository
-        calificacion_repo = CalificacionRepository()
+        calificacion_repo = CalificacionRepository(db_connection.client)
         
         calificaciones = await calificacion_repo.get_by_medico(medico_id)
         if not calificaciones:

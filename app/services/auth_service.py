@@ -169,3 +169,9 @@ class AuthService:
             return response.user is not None
         except Exception:
             return False
+    
+    def create_access_token(self, data: dict, expires_delta=None):
+        """Crear token de acceso (compatibilidad con JWT)"""
+        # Para Supabase, simplemente retornamos el token existente
+        # En una implementación real, podrías generar un nuevo token JWT
+        return data.get("token", "")

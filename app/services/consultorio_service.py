@@ -14,7 +14,7 @@ class ConsultorioService:
     """Servicio para operaciones de Consultorio"""
     
     def __init__(self):
-        self.consultorio_repo = ConsultorioRepository()
+        self.consultorio_repo = ConsultorioRepository(db_connection.client)
     
     async def create_consultorio(self, consultorio_data: ConsultorioCreate) -> ConsultorioResponse:
         """Crear un nuevo consultorio"""

@@ -17,10 +17,10 @@ class CalificacionService:
     """Servicio para operaciones de Calificación"""
     
     def __init__(self):
-        self.calificacion_repo = CalificacionRepository()
-        self.cita_repo = CitaRepository()
-        self.medico_repo = MedicoRepository()
-        self.paciente_repo = PacienteRepository()
+        self.calificacion_repo = CalificacionRepository(db_connection.client)
+        self.cita_repo = CitaRepository(db_connection.client)
+        self.medico_repo = MedicoRepository(db_connection.client)
+        self.paciente_repo = PacienteRepository(db_connection.client)
     
     async def create_calificacion(self, calificacion_data: CalificacionCreate) -> CalificacionResponse:
         """Crear una nueva calificación"""

@@ -72,6 +72,18 @@ async def get_citas_with_details(
     return await cita_service.get_citas_with_details(skip, limit)
 
 
+@router.get("/pendientes-pago", response_model=List[CitaResponse], summary="Obtener citas pendientes de pago")
+async def get_citas_pendientes_pago(
+    current_user: dict = Depends(get_current_user)
+):
+    """
+    Obtener citas pendientes de pago
+    
+    Requiere autenticación
+    """
+    return await cita_service.get_citas_pendientes_pago()
+
+
 @router.get("/{cita_id}", response_model=CitaResponse, summary="Obtener cita por ID")
 async def get_cita(
     cita_id: UUID,
@@ -179,18 +191,6 @@ async def get_citas_by_fecha_range(
     Requiere autenticación
     """
     return await cita_service.get_citas_by_fecha_range(fecha_inicio, fecha_fin)
-
-
-@router.get("/pendientes-pago", response_model=List[CitaResponse], summary="Obtener citas pendientes de pago")
-async def get_citas_pendientes_pago(
-    current_user: dict = Depends(get_current_user)
-):
-    """
-    Obtener citas pendientes de pago
-    
-    Requiere autenticación
-    """
-    return await cita_service.get_citas_pendientes_pago()
 
 
 @router.post("/{cita_id}/pagar", response_model=CitaResponse, summary="Marcar cita como pagada")

@@ -15,8 +15,8 @@ class NotificacionService:
     """Servicio para operaciones de Notificación"""
     
     def __init__(self):
-        self.notificacion_repo = NotificacionRepository()
-        self.usuario_repo = UsuarioRepository()
+        self.notificacion_repo = NotificacionRepository(db_connection.client)
+        self.usuario_repo = UsuarioRepository(db_connection.client)
     
     async def create_notificacion(self, notificacion_data: NotificacionCreate) -> NotificacionResponse:
         """Crear una nueva notificación"""

@@ -10,12 +10,12 @@ from app.config import settings
 def setup_security(app: FastAPI):
     """Configurar middleware de seguridad"""
     
-    # Solo en producción, redirigir HTTP a HTTPS
-    if settings.environment == "production":
-        app.add_middleware(HTTPSRedirectMiddleware)
+    # No redirigir HTTP a HTTPS en Railway para evitar problemas con healthcheck
+    # if settings.environment == "production":
+    #     app.add_middleware(HTTPSRedirectMiddleware)
     
-    # Configurar hosts confiables
+    # Configurar hosts confiables - temporalmente permitir todos para Railway
     app.add_middleware(
         TrustedHostMiddleware,
-        allowed_hosts=["*"] if settings.debug else ["localhost", "127.0.0.1"]
+        allowed_hosts=["*"]
     )

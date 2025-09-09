@@ -17,9 +17,9 @@ class CitaService:
     """Servicio para operaciones de Cita"""
     
     def __init__(self):
-        self.cita_repo = CitaRepository()
-        self.medico_repo = MedicoRepository()
-        self.paciente_repo = PacienteRepository()
+        self.cita_repo = CitaRepository(db_connection.client)
+        self.medico_repo = MedicoRepository(db_connection.client)
+        self.paciente_repo = PacienteRepository(db_connection.client)
     
     async def create_cita(self, cita_data: CitaCreate) -> CitaResponse:
         """Crear una nueva cita"""
